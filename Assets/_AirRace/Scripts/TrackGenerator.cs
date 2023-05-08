@@ -7,16 +7,17 @@ using PathCreation;
 public class TrackGenerator : MonoBehaviour
 {
 	public TextAsset file;
-	public bool closedLoop = true;
-
+	public bool closedLoop;
+	public bool useStraightLine;
+	public GameObject pointMarker;
+	public GameObject groundArrow;
 	private List<Vector3> waypoints;
 
 	void Start()
 	{
 		waypoints = new List<Vector3>();
 		ParseFile();
-		BezierPath bezierPath = new BezierPath(waypoints, closedLoop, PathSpace.xyz);
-		GetComponent<PathCreator>().bezierPath = bezierPath;
+		DrawBezier();
 	}
 
 	void ParseFile()
@@ -30,5 +31,16 @@ public class TrackGenerator : MonoBehaviour
 			Vector3 pos = new Vector3(float.Parse(coords[0]), float.Parse(coords[1]), float.Parse(coords[2]));
 			waypoints.Add(pos * ScaleFactor);
 		}
+	}
+
+	void DrawBezier()
+	{
+		BezierPath bezierPath = new BezierPath(waypoints, closedLoop, PathSpace.xyz);
+		GetComponent<PathCreator>().bezierPath = bezierPath;
+	}
+
+	void CreateTrack()
+	{
+
 	}
 }
