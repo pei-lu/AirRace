@@ -3,21 +3,32 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using PathCreation;
+using UnityEngine.UIElements;
 
 public class TrackGenerator : MonoBehaviour
 {
 	public TextAsset file;
 	public bool closedLoop;
-	public bool useStraightLine;
-	public GameObject pointMarker;
-	public GameObject groundArrow;
-	private List<Vector3> waypoints;
+	public GameObject waypointPrefab;
+	public GameObject tunnelPrefab;
+	public int tunnelNumber;
+	public GameObject player;
+	private List<Vector3> waypointPositions;
+	private List<Vector3> tunnelPositions;
+	private List<Quaternion> tunnelRotations;
+
+	private PathCreator pathCreator;
 
 	void Start()
 	{
-		waypoints = new List<Vector3>();
+		waypointPositions = new List<Vector3>();
+		tunnelPositions = new List<Vector3>();
+		tunnelRotations = new List<Quaternion>();
+		pathCreator = GetComponent<PathCreator>();
 		ParseFile();
-		DrawBezier();
+		GeneratePath();
+		GenerateTunnel();
+		InitPlayer();
 	}
 
 	void ParseFile()
@@ -29,18 +40,35 @@ public class TrackGenerator : MonoBehaviour
 		{
 			string[] coords = lines[i].Split(' ');
 			Vector3 pos = new Vector3(float.Parse(coords[0]), float.Parse(coords[1]), float.Parse(coords[2]));
-			waypoints.Add(pos * ScaleFactor);
+			waypointPositions.Add(pos * ScaleFactor);
 		}
 	}
 
-	void DrawBezier()
+	void GeneratePath()
 	{
-		BezierPath bezierPath = new BezierPath(waypoints, closedLoop, PathSpace.xyz);
+		foreach (Vector3 waypointPos in waypointPositions)
+		{
+			Instantiate(waypointPrefab, waypointPos, Quaternion.identity);
+		}
+		BezierPath bezierPath = new BezierPath(waypointPositions, closedLoop, PathSpace.xyz);
 		GetComponent<PathCreator>().bezierPath = bezierPath;
 	}
 
-	void CreateTrack()
+	void GenerateTunnel()
 	{
+		float delta = 1.0f / (tunnelNumber + 1);
+		for (int i = 0; i < tunnelNumber; i++)
+		{
+			tunnelPositions.Add(pathCreator.path.GetPointAtTime(i * delta));
+			tunnelRotations.Add(pathCreator.path.GetRotation(i * delta));
+			Instantiate(tunnelPrefab, tunnelPositions[i], tunnelRotations[i]);
+		}
 
+	}
+
+	void InitPlayer()
+	{
+		player.transform.position = waypointPositions[0];
+		player.transform.forward = pathCreator.path.GetDirection(0);
 	}
 }
