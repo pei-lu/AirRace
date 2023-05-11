@@ -14,7 +14,7 @@
 
 - The waypoints are designed with a unique style:
 
-  ![waypoint.gif](https://drive.google.com/file/d/1-LJesojkIUYhJBI_2v_JeWHH49H2SIO4/view?usp=share_link)
+  ![waypoint](https://drive.google.com/file/d/1-LJesojkIUYhJBI_2v_JeWHH49H2SIO4/view?usp=share_link)
 
   It mainly has three parts. The top is a dragon resting on a spinning ancient ring, roaring from time to time. The bottom is a spinning sci-fi station. The middle is a glowing transparent sphere with a 3D waypoint ID in it. 
 
