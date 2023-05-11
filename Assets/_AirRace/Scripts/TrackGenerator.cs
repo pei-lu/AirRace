@@ -7,27 +7,29 @@ using UnityEngine.UIElements;
 
 public class TrackGenerator : MonoBehaviour
 {
+	public GameObject waypointContainer;
 	public TextAsset file;
 	public bool closedLoop;
 	public GameObject waypointPrefab;
-	public GameObject tunnelPrefab;
-	public int tunnelNumber;
+	public GameObject roadSignPrefab;
+	public int roadSignNumber;
 	public GameObject player;
 	private List<Vector3> waypointPositions;
-	private List<Vector3> tunnelPositions;
-	private List<Quaternion> tunnelRotations;
+	private List<Vector3> roadSignPositions;
+	private List<Quaternion> roadSignRotations;
 
 	private PathCreator pathCreator;
 
 	void Start()
 	{
 		waypointPositions = new List<Vector3>();
-		tunnelPositions = new List<Vector3>();
-		tunnelRotations = new List<Quaternion>();
+		roadSignPositions = new List<Vector3>();
+		roadSignRotations = new List<Quaternion>();
 		pathCreator = GetComponent<PathCreator>();
 		ParseFile();
+		GenerateWaypoints();
 		GeneratePath();
-		GenerateTunnel();
+		GenerateRoadSigns();
 		InitPlayer();
 	}
 
@@ -44,24 +46,50 @@ public class TrackGenerator : MonoBehaviour
 		}
 	}
 
+	void GenerateWaypoints()
+	{
+		Vector3 directionVector = -pathCreator.path.GetDirection(0);
+		directionVector.y = 0;
+		for (int i = 0; i < waypointPositions.Count; i++)
+		{
+			if (i > 0)
+			{
+				directionVector = waypointPositions[i] - waypointPositions[i - 1];
+			}
+			GameObject waypoint = Instantiate(waypointPrefab, waypointPositions[i], Quaternion.LookRotation(directionVector.normalized));
+			waypoint.transform.parent = waypointContainer.transform;
+			waypointContainer.GetComponent<WaypointsContainer>().AddWaypoint(waypoint);
+			if (i <= 9)
+			{
+				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().Text = "0" + i.ToString();
+				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().GenerateText();
+				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().ApplyMeshRenderer();
+			}
+			else
+			{
+				// the number of waypoints will < 100
+				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().Text = i.ToString();
+				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().GenerateText();
+				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().ApplyMeshRenderer();
+			}
+		}
+	}
 	void GeneratePath()
 	{
-		foreach (Vector3 waypointPos in waypointPositions)
-		{
-			Instantiate(waypointPrefab, waypointPos, Quaternion.identity);
-		}
+		
 		BezierPath bezierPath = new BezierPath(waypointPositions, closedLoop, PathSpace.xyz);
 		GetComponent<PathCreator>().bezierPath = bezierPath;
 	}
 
-	void GenerateTunnel()
+	void GenerateRoadSigns()
 	{
-		float delta = 1.0f / (tunnelNumber + 1);
-		for (int i = 0; i < tunnelNumber; i++)
+		float delta = 1.0f / (roadSignNumber + 1);
+		for (int i = 0; i < roadSignNumber; i++)
 		{
-			tunnelPositions.Add(pathCreator.path.GetPointAtTime(i * delta));
-			tunnelRotations.Add(pathCreator.path.GetRotation(i * delta));
-			Instantiate(tunnelPrefab, tunnelPositions[i], tunnelRotations[i]);
+			roadSignPositions.Add(pathCreator.path.GetPointAtTime(i * delta));
+			roadSignRotations.Add(pathCreator.path.GetRotation(i * delta));
+			GameObject roadSign = Instantiate(roadSignPrefab, roadSignPositions[i], roadSignRotations[i]);
+			roadSign.transform.parent = transform;
 		}
 
 	}
