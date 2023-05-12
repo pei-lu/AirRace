@@ -5,16 +5,17 @@ using UnityEngine;
 public class WaypointsContainer : MonoBehaviour
 {
     public Queue<GameObject> waypoints;
-	private void Start()
+	private void Awake()
 	{
 		waypoints = new Queue<GameObject>();
 	}
 	public void AddWaypoint(GameObject waypoint)
     {
 		waypoints.Enqueue(waypoint);
-    }
 
-    public void DeletePassedWaypoint()
+	}
+
+	public void DeletePassedWaypoint()
     {
         waypoints.Dequeue();
     }

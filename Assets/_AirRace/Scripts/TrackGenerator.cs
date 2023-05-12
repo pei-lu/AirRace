@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class TrackGenerator : MonoBehaviour
 {
-	public GameObject waypointContainer;
+	public GameObject waypoinsContainer;
 	public TextAsset file;
 	public bool closedLoop;
 	public GameObject waypointPrefab;
@@ -35,7 +35,7 @@ public class TrackGenerator : MonoBehaviour
 
 	void ParseFile()
 	{
-		float ScaleFactor = 0.02564103f;
+		float ScaleFactor = 0.0254f;
 		string content = file.ToString();
 		string[] lines = content.Split('\n');
 		for (int i = 0; i < lines.Length; i++)
@@ -57,8 +57,8 @@ public class TrackGenerator : MonoBehaviour
 				directionVector = waypointPositions[i] - waypointPositions[i - 1];
 			}
 			GameObject waypoint = Instantiate(waypointPrefab, waypointPositions[i], Quaternion.LookRotation(directionVector.normalized));
-			waypoint.transform.parent = waypointContainer.transform;
-			waypointContainer.GetComponent<WaypointsContainer>().AddWaypoint(waypoint);
+			waypoint.transform.parent = waypoinsContainer.transform;
+			waypoinsContainer.GetComponent<WaypointsContainer>().AddWaypoint(waypoint);
 			if (i <= 9)
 			{
 				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().Text = "0" + i.ToString();
