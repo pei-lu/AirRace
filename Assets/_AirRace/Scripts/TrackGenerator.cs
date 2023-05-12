@@ -61,14 +61,14 @@ public class TrackGenerator : MonoBehaviour
 			waypoinsContainer.GetComponent<WaypointsContainer>().AddWaypoint(waypoint);
 			if (i <= 9)
 			{
-				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().Text = "0" + i.ToString();
+				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().Text = "0" + (i + 1).ToString();
 				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().GenerateText();
 				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().ApplyMeshRenderer();
 			}
 			else
 			{
 				// the number of waypoints will < 100
-				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().Text = i.ToString();
+				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().Text = (i + 1).ToString();
 				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().GenerateText();
 				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().ApplyMeshRenderer();
 			}
