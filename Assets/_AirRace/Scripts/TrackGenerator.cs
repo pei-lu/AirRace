@@ -78,7 +78,8 @@ public class TrackGenerator : MonoBehaviour
 	{
 		
 		BezierPath bezierPath = new BezierPath(waypointPositions, closedLoop, PathSpace.xyz);
-		GetComponent<PathCreator>().bezierPath = bezierPath;
+        bezierPath.AutoControlLength = 0.01f; // set the curve to straightline
+        GetComponent<PathCreator>().bezierPath = bezierPath;
 	}
 
 	void GenerateRoadSigns()

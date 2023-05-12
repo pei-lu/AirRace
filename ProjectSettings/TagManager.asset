@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - WaypointOrb
+  - countDown
+  - Timmer
+  - handRecg
+  - cameraManager
   layers:
   - Default
   - TransparentFX
