@@ -23,16 +23,17 @@
 ### 2.1 Moving 
 
 1. Holding fist while keeping the palm pointing forward to move forward.
+  
 2. Turning palm facing yourself will enable you to move backward.
+  
 3. Sound effact is added, the engine sound will become louder as player moving faster
 
 ### 2.2 Turning
 
 1. Using right hand pinch to activate the turning function.
+  
 2. While maintaining the pinch pose, move right hand would map player's hand movement to their rotation.
-
-
-
+  
 ## 3. Wayfinding & Motion sickness mitigation  (20 Points)
 
 ### 3.1 Wayfinding
