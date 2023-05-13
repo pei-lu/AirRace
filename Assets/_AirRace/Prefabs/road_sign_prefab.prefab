@@ -41,9 +41,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7179034762442618079}
+  - component: {fileID: -7680119249213898728}
   m_Layer: 0
   m_Name: road_sign_prefab
-  m_TagString: Untagged
+  m_TagString: RoadSign
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,6 +65,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &-7680119249213898728
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7179034762442618076}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 14.599112, y: 5.8669233, z: 7.964508}
+  m_Center: {x: -0.30350375, y: -0.015719414, z: -0.009836197}
 --- !u!1001 &7179034762518975096
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -24,4 +24,10 @@ public class WaypointsContainer : MonoBehaviour
     {
         return waypoints.Peek();
     }
+
+    public Vector3 NextPointPos()
+    {
+        Vector3 toReturn = waypoints.Peek().transform.position;
+        return toReturn;
+    }
 }

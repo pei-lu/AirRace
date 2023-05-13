@@ -48,7 +48,7 @@ public class TrackGenerator : MonoBehaviour
 
 	void GenerateWaypoints()
 	{
-		Vector3 directionVector = -pathCreator.path.GetDirection(0);
+		Vector3 directionVector = waypointPositions[1] - waypointPositions[0];
 		directionVector.y = 0;
 		for (int i = 0; i < waypointPositions.Count; i++)
 		{
@@ -59,7 +59,7 @@ public class TrackGenerator : MonoBehaviour
 			GameObject waypoint = Instantiate(waypointPrefab, waypointPositions[i], Quaternion.LookRotation(directionVector.normalized));
 			waypoint.transform.parent = waypoinsContainer.transform;
 			waypoinsContainer.GetComponent<WaypointsContainer>().AddWaypoint(waypoint);
-			if (i <= 9)
+			if (i <= 8)
 			{
 				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().Text = "0" + (i + 1).ToString();
 				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().GenerateText();
@@ -69,6 +69,7 @@ public class TrackGenerator : MonoBehaviour
 			{
 				// the number of waypoints will < 100
 				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().Text = (i + 1).ToString();
+				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().CharacterSpacing = -1;
 				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().GenerateText();
 				waypoint.transform.Find("number").GetComponent<SimpleHelvetica>().ApplyMeshRenderer();
 			}

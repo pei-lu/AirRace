@@ -10,16 +10,11 @@ public class timmer : MonoBehaviour
     [SerializeField] public float time;
     [SerializeField] public Boolean activited;
     [SerializeField] public Text timeText;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
-        if( activited)
+        if(activited)
         {
             time += Time.deltaTime;
         }
@@ -34,16 +29,13 @@ public class timmer : MonoBehaviour
         timeText.text = string.Format("{0:00}:{1:00}", minutes, second);
     }
 
-    void FreezeTimmer()
-    {
+	public void FreezeTimmer()
+	{
+		activited = false;
+	}
 
-    }
-
-    public void startTimmer() { 
-        activited = !activited;
-    }
-    public void countDownTimmer()
-    {
-        //count down 3 second activited = true;
-    }
+	public void StartTimmer()
+	{
+		activited = true;
+	}
 }

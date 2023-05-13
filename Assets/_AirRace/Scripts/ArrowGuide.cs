@@ -5,20 +5,19 @@ using UnityEngine;
 public class ArrowGuide : MonoBehaviour
 {
 	public WaypointsContainer waypointsContainer;
+	public GameObject guideArrow; 
 	[Range(0f, 1f)]
 	public float arrowSensitivity = 0.05f;
 	[Range(0f, 90f)]
 	[Tooltip("The minimum angle in degrees between the forward direction and the direction to the arrow.")]
-	public float minAngle = 15f;
+	public float minAngle = 5f;
 
-	private GameObject guideArrow;
 	private bool shouldMove = false;
 	private Vector3 attachDirection; // a nomalized vector pointing from camera to the arrow
 	private GameObject nextWaypoint;
 
 	private void Start()
 	{
-		guideArrow = transform.Find("guide_arrow").gameObject;
 		attachDirection = guideArrow.transform.position - transform.position;
 	}
 
