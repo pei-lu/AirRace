@@ -20,10 +20,16 @@
 
 ## 2. Flight Controls (25 Points)
 
-change velocity + 4 directions
+### 2.1 Moving 
 
-- openness of left hand controls the value of velocity, direction of the palm determines its sign
-- pinch gesture controls rotation, kind of like drag the airplane’s head to different orientations
+1. Holding fist while keeping the palm pointing forward to move forward.
+2. Turning palm facing yourself will enable you to move backward.
+3. Sound effact is added, the engine sound will become louder as player moving faster
+
+### 2.2 Turning
+
+1. Using right hand pinch to activate the turning function.
+2. While maintaining the pinch pose, move right hand would map player's hand movement to their rotation.
 
 
 
@@ -43,7 +49,8 @@ Visual way of helping the player to know where to go next include the following:
 
 ### 3.2 Motion Sickness Mitigation
 
-The aircraft has three cameras that allow the player to toggle between.
+The aircraft has three cameras that allow the player to toggle between.  
+cameras can be switched by clapping hands.
 
 1. Nose view: the camera is placed at the nose of the plane, nearly with no visuals.
 2. Cockpit view: the camera is placed in the cockpit (as the picture below).
@@ -52,6 +59,10 @@ The aircraft has three cameras that allow the player to toggle between.
 ![](https://i.imgur.com/mis5Jwz.png)
 
 ## 4. Gameplay (25 Points)
+- Start game:
+  - Using pinch gesture
+    - When the game haven't started yet, use left hand to pinch would start a 3 second count down.
+    - After count down back to 0, the timmer will start and the player will be able to move.
 
 - Collision:
 
